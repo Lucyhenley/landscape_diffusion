@@ -17,7 +17,7 @@ xlabel('\alpha')
 ylabel('Frequency')
 set(gca,'fontsize',15)
 title('Posterior')
-
+%%
 x = 0:5:150;
 pd = fitdist(alpha_posterior(1:acceptance_rate*sample_size),'normal')
 posterior = pdf(pd,x);
@@ -26,7 +26,7 @@ posterior = pdf(pd,x);
 fig_filename = [current_folder,'landscape_diffusion\lightscape_threshold_diffusion_alpha'];
 %export_fig([fig_filename,'.png'], '-png','-transparent');
 %save([current_folder,'landscape_diffusion\thresholdlightscape_', sample_size])
-
+%%
 
 edge = linspace(min(threshold),max(threshold),20);
 figure ('pos',[0 0 1500 600])
@@ -45,15 +45,31 @@ ylabel('Frequency')
 set(gca,'fontsize',15)
 title('Posterior')
 
-
+%%
 
 fig_filename = [current_folder,'landscape_diffusion\lightscape_threshold_diffusion_threshold'];
 %export_fig([fig_filename,'.png'], '-png','-transparent');
 
+%%
+p = invprctile(nonzeros(data),threshold_posterior);
+edge = 0:10:100;
+  figure
+subplot(1,2,1)
+histogram(p, edge)
+xlabel('\epsilon')
+ylabel('Frequency')
+set(gca,'fontsize',15)
+title('Prior')
+p = invprctile(nonzeros(data),threshold_posterior(1:sample_size*acceptance_rate));
+subplot(1,2,2)
+histogram(p, edge)
+xlabel('\epsilon')
+ylabel('Frequency')
+set(gca,'fontsize',15)
+title('Posterior')
+%%
 
-
-
-
+  
 %%
         x_point = data_info(3):data_info(5):data_info(3)+data_info(5)*data_info(2)-1;
         y_point = data_info(4):data_info(5):data_info(4)+data_info(5)*data_info(1)-1;
